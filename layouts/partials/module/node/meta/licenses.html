@@ -1,0 +1,18 @@
+{{ $x := (.context | default .) }}
+
+{{ with ($x.Params.licenses) }}
+  <ul class="row list-unstyled">
+    <li class="col-4">
+      <span>{{ i18n "license" }}</span>
+    </li>
+    <li class="col">
+      <ol class="ps-3">
+          {{ range . }}
+            <li>
+              <a href="https://choosealicense.com/licenses/{{ . }}" target="_blank" rel="noopener nofollow">{{ (. | upper) }}</a>
+            </li>
+          {{ end }}
+      </ol>
+    </li>
+  </ul>
+{{ end }}

@@ -1,13 +1,15 @@
 {{ $x := (.context | default .) }}
-{{ $posts := (where $x.Site.RegularPages "Type" "in" $x.Site.Params.sections.blog) }}
-{{ $count := ($x.Site.Data.cfg.index.posts.count | default "9") }}
-{{ $view_mode := ($x.Site.Data.cfg.index.posts.view | default "0") }}
-{{ $sidebar_on := ($x.Site.Data.cfg.sidebar.on | default 0) }}
-{{ $sidebar_news_on := ($x.Site.Data.cfg.sidebar.news.on | default 0) }}
+{{ $cfg := ($x.Site.Data.cfg) }}
 
-{{ if ($sidebar_news_on) }}
-{{ $news := (where $posts ".Params.categories" "intersect" (slice "News")) }}
-{{ $posts = ($posts | complement $news) }}
+{{ $posts := (where $x.Site.RegularPages "Type" "in" $x.Site.Params.sections.blog) }}
+{{ $count := ($cfg.index.posts.count | default "9") }}
+{{ $view := ($cfg.index.posts.view | default "0") }}
+{{ $sidebar_on := ($cfg.sidebar.on | default 0) }}
+{{ $exclude_categories := ($cfg.index.categories.exclude | default (slice "")) }}
+
+{{ with ($exclude_categories) }}
+    {{ $exclude := (where $posts ".Params.categories" "intersect" .) }}
+    {{ $posts = ($posts | complement $exclude) }}
 {{ end }}
 
 {{ $posts = ($posts | first $count) }}
@@ -16,46 +18,67 @@
 {{ $container_close := ("</div>" | safeHTML) }}
 
 {{ if (and ($sidebar_on) ($x.IsHome)) }}
-{{ $container_open = "" }}
-{{ $container_close = "" }}
+    {{ $container_open = "" }}
+    {{ $container_close = "" }}
 {{ end }}
 
 {{ with ($posts) }}
-<div class="section py-3 py-md-5">
-  {{ $container_open }}
-  <div class="row row-cols-1 g-3">
-    {{ if (eq $view_mode "0") }}
-    <div class="col">
-      {{ range (first 1 .) }}
-      {{ $summary := (delimit (slice .Summary "") "") }}
-      {{ partial "summary" (dict "context" . "summary" $summary "view" "node-00") }}
-      {{ end }}
-    </div>
-    <div class="col">
-      <div class="row row-cols-1 row-cols-lg-2 g-3">
-        {{ range (after 1 .) }}
-        <div class="col">
-          {{ $summary := (delimit (slice .Summary "") "") }}
-          {{ partial "summary" (dict "context" . "summary" $summary "view" "node-00") }}
-        </div>
-        {{ end }}
-      </div>
-    </div>
-    {{ end }}
 
-    {{ if (eq $view_mode "1") }}
-    <div class="col">
-      <div class="row row-cols-1 row-cols-lg-2 g-3">
-        {{ range . }}
-        <div class="col">
-          {{ $summary := (delimit (slice .Summary "") "") }}
-          {{ partial "summary" (dict "context" . "summary" $summary "view" "node-00") }}
+  <div class="section py-3 py-md-5">
+      {{ $container_open }}
+    <h2 class="border-bottom">
+      <a href='{{ "posts/" | relLangURL }}'>{{ i18n "posts" }}</a>
+    </h2>
+    <!--[ view: 0 ]-->
+      {{ if (eq $view "0") }}
+        <div class="row row-cols-1 g-3">
+          <div class="col">
+              {{ range (first 1 .) }}
+                  {{ $summary := (delimit (slice .Summary "") "") }}
+                  {{ (partial "view/node-image-lg" (dict "context" . "summary" $summary)) }}
+              {{ end }}
+          </div>
+          <div class="col">
+            <div class="row row-cols-1 row-cols-lg-2 g-3">
+                {{ range (after 1 .) }}
+                  <div class="col">
+                      {{ $summary := (delimit (slice .Summary "") "") }}
+                      {{ (partial "view/node-image-lg" (dict "context" . "summary" $summary)) }}
+                  </div>
+                {{ end }}
+            </div>
+          </div>
         </div>
-        {{ end }}
-      </div>
-    </div>
-    {{ end }}
+      {{ end }}
+    <!--[ / view: 0 ]-->
+
+    <!--[ view: 1 ]-->
+      {{ if (eq $view "1") }}
+        <div class="row row-cols-1 row-cols-lg-2 g-3">
+            {{ range . }}
+              <div class="col">
+                  {{ $summary := (delimit (slice .Summary "") "") }}
+                  {{ (partial "view/node-image-lg" (dict "context" . "summary" $summary)) }}
+              </div>
+            {{ end }}
+        </div>
+      {{ end }}
+    <!--[ / view: 1 ]-->
+
+    <!--[ view: 2 ]-->
+      {{ if (eq $view "2") }}
+        <div class="row row-cols-1 row-cols-lg-2 g-3">
+            {{ range . }}
+              <div class="col">
+                  {{ $summary := (delimit (slice .Summary "") "") }}
+                  {{ (partial "view/node-image-md" (dict "context" . "summary" $summary)) }}
+              </div>
+            {{ end }}
+        </div>
+      {{ end }}
+    <!--[ / view: 2 ]-->
+
+      {{ $container_close }}
   </div>
-  {{ $container_close }}
-</div>
+
 {{ end }}

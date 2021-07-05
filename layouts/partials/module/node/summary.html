@@ -2,8 +2,4 @@
 {{ $summary := (.summary | default $x.Summary) }}
 {{ $more := "<!--more-->" }}
 
-{{ if (in $x.RawContent $more) }}
-{{ $summary }}
-{{ else }}
-<p>{{ $summary }}</p>
-{{ end }}
+{{ if (in $x.RawContent $more) }}{{ $summary }}{{ else }}<p>{{ $summary }}</p>{{ end }}

@@ -1,7 +1,13 @@
 {{ define "main" }}
 
-{{ if ($.Site.Data.cfg.index.posts.on) }}
-{{ partial "module/index/posts" (dict "context" .) }}
-{{ end }}
+    {{ $cfg := ($.Site.Data.cfg) }}
+
+    {{ if ($cfg.index.news.on) }}
+        {{ (partial "module/index/news" (dict "context" .)) }}
+    {{ end }}
+
+    {{ if ($cfg.index.posts.on) }}
+        {{ (partial "module/index/posts" (dict "context" .)) }}
+    {{ end }}
 
 {{ end }}

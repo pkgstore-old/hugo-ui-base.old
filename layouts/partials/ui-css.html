@@ -1,42 +1,41 @@
 {{ $styles := ($.Site.Data.ui.styles) }}
 
-<!-- vendor-external -->
+<!--[ css: vendor external ]-->
 {{ with ($styles.vendor.external) }}
-{{ range . }}
-<link rel="preload" href="{{ . }}" as="style" crossorigin="anonymous"/>
-<link rel="stylesheet" href="{{ . }}" crossorigin="anonymous"/>
+    {{ range . }}
+      <link rel="preload" href="{{ . }}" as="style" crossorigin="anonymous"/>
+      <link rel="stylesheet" href="{{ . }}" crossorigin="anonymous"/>
+    {{ end }}
 {{ end }}
-{{ end }}
-<!-- / vendor-external -->
+<!--[ / css: vendor external ]-->
 
-<!-- vendor-internal -->
+<!--[ css: vendor internal ]-->
 {{ with ($styles.vendor.internal) }}
-{{ $bundle := slice }}
-{{ range . }}
-{{ $bundle = ($bundle | append (resources.Get .)) }}
+    {{ $bundle := slice }}
+    {{ range . }}
+        {{ $bundle = ($bundle | append (resources.Get .)) }}
+    {{ end }}
+
+    {{ $bundle = ($bundle | resources.Concat "css/vendor.bundle.scss") }}
+    {{ $bundle = (($bundle | toCSS) | minify) }}
+
+    <link rel="preload" href="{{ $bundle.RelPermalink }}" as="style"/>
+    <link rel="stylesheet" href="{{ $bundle.RelPermalink }}"/>
 {{ end }}
+<!--[ / css: vendor internal ]-->
 
-{{ $bundle = ($bundle | resources.Concat "css/vendor.bundle.scss") }}
-{{ $bundle = (($bundle | toCSS) | minify) }}
-
-<link rel="preload" href="{{ $bundle.RelPermalink }}" as="style"/>
-<link rel="stylesheet" href="{{ $bundle.RelPermalink }}"/>
-{{ end }}
-<!-- / vendor-internal -->
-
-<!-- ui-internal -->
+<!--[ css: ui internal ]-->
 {{ with ($styles.system.internal) }}
-{{ $bundle := slice }}
-{{ range . }}
-{{ $bundle = ($bundle | append (resources.Get .)) }}
+    {{ $bundle := slice }}
+    {{ range . }}
+        {{ $bundle = ($bundle | append (resources.Get .)) }}
+    {{ end }}
+
+    {{ $bundle = ($bundle | resources.Concat "css/system.bundle.scss") }}
+    {{ $bundle = ($bundle | resources.ExecuteAsTemplate ("css/system.bundle.scss" | relLangURL) .) }}
+    {{ $bundle = (($bundle | toCSS) | minify) }}
+
+    <link rel="preload" href="{{ $bundle.RelPermalink }}" as="style"/>
+    <link rel="stylesheet" href="{{ $bundle.RelPermalink }}"/>
 {{ end }}
-
-{{ $bundle = ($bundle | resources.Concat "css/system.bundle.scss") }}
-{{ $bundle = ($bundle | resources.ExecuteAsTemplate ("css/system.bundle.scss" | relLangURL) .) }}
-{{ $bundle = (($bundle | toCSS) | minify) }}
-
-
-<link rel="preload" href="{{ $bundle.RelPermalink }}" as="style"/>
-<link rel="stylesheet" href="{{ $bundle.RelPermalink }}"/>
-{{ end }}
-<!-- / ui-internal -->
+<!--[ / css: ui internal ]-->

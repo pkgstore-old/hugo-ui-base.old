@@ -1,3 +1,9 @@
-{{ if ($.Site.Data.cfg.sidebar.news.on) }}
-{{ partial "module/sidebar/news" (dict "context" .) }}
-{{ end }}
+<ul class="list-unstyled">
+    {{ if ($.Site.Data.cfg.sidebar.news.on) }}
+      <li>{{ (partial "module/sidebar/news" (dict "context" .)) }}</li>
+    {{ end }}
+
+    {{ if ($.Site.Data.cfg.sidebar.opinion.on) }}
+      <li>{{ (partial "module/sidebar/opinion" (dict "context" .)) }}</li>
+    {{ end }}
+</ul>

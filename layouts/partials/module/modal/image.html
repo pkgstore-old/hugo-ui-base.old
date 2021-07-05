@@ -19,11 +19,11 @@
           <img class="w-100 h-100" src="{{ $src }}" alt="{{ $alt }}" loading="lazy"/>
         </picture>
       </div>
-      {{ with $caption }}
-      <div class="modal-footer">
-        <p>{{ . }}</p>
-      </div>
-      {{ end }}
+        {{ with ($caption) }}
+          <div class="modal-footer">
+            <p>{{ . }}</p>
+          </div>
+        {{ end }}
     </div>
   </div>
 </div>

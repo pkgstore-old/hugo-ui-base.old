@@ -1,0 +1,15 @@
+{{ $x := (.context | default .) }}
+{{ $summary := (.summary | default $x.Summary) }}
+
+<article class="node-{{ $x.Type }}">
+  <header>
+    <div class="node-title">
+      <h4 class="h5">
+        <a href="{{ $x.RelPermalink }}">{{ $x.Title }}</a>
+      </h4>
+    </div>
+  </header>
+  <div class="node-body">
+      {{ (partial "module/node/summary" (dict "context" $x "summary" $summary)) }}
+  </div>
+</article>

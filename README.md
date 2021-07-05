@@ -17,7 +17,10 @@ git submodule update --remote
 ## Uninstall
 
 ```
-git submodule deinit -f themes/ui-base && git rm -r --cached themes/ui-base && rm -rf .git/modules/themes/ui-base
+git submodule deinit -f themes/ui-base  \
+  && git rm -r --cached themes/ui-base  \
+  && rm -rf .git/modules/themes/ui-base \
+  && rm -rf themes/ui-base
 ```
 
 ## Features / Особенности

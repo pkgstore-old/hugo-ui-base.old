@@ -16,7 +16,7 @@ body {
   &.type-authors {
     article {
       header {
-        .article-cover {
+        .node-cover {
           position: relative;
 
           .cover-avatar {
@@ -70,19 +70,6 @@ body {
 
     .fa-heart {
       color: #fe6e3a;
-    }
-  }
-}
-
-body {
-  > .wrapper {
-    > main {
-      .node-icon {
-        $size: 4rem;
-
-        width: $size;
-        height: $size;
-      }
     }
   }
 }

@@ -2,7 +2,7 @@
 
 function worker() {
   onmessage = ($event) => {
-    importScripts('/js/vendor/highlight/highlight.js');
+    importScripts('/js/hljs/highlight.min.js');
     const $result = self.hljs.highlightAuto($event.data);
     postMessage($result.value);
     close();

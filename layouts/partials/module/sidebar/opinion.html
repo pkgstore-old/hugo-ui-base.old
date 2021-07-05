@@ -1,0 +1,47 @@
+{{ $x := (.context | default .) }}
+{{ $count := ($x.Site.Data.cfg.sidebar.opinion.count | default "10") }}
+{{ $truncate := ($x.Site.Data.cfg.sidebar.opinion.truncate | default "100") }}
+{{ $posts := (where $x.Site.RegularPages "Type" "in" $x.Site.Params.sections.blog) }}
+{{ $opinion := ((where $posts ".Params.categories" "intersect" (slice "Opinion")) | first $count) }}
+
+{{ with ($opinion) }}
+  <div class="section py-3 py-md-5 pt-lg-5 pb-lg-0">
+    <article>
+      <h2>
+        <a href='{{ "categories/opinion/" | relLangURL }}'>{{ i18n "opinion" }}</a>
+      </h2>
+      <div class="border-start ps-3">
+        <ul class="list-group list-group-flush">
+            {{ range . }}
+              <li class="list-group-item px-0">
+                <article class="d-flex">
+                  <div class="flex-shrink-0">
+                      {{ (partial "module/sidebar/cover/image" (dict "context" .)) }}
+                  </div>
+                  <div class="flex-grow-1 ms-3">
+                    <div class="d-flex flex-column h-100">
+                      <header>
+                        <h4 class="h5">
+                          <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+                        </h4>
+                      </header>
+                      <div class="node-body flex-grow-1">
+                          {{ ((partial "module/node/summary" (dict "context" .)) | truncate $truncate) }}
+                      </div>
+                      <footer class="mt-auto">
+                        <div class="small text-muted text-end fst-italic">
+                          <time datetime='{{ (.Date.UTC.Format "2006-01-02T15:04:05Z07:00") }}' data-ext-fn="ext-date-local">
+                              {{ (.Date.UTC.Format "2006/01/02 15:04:05 MST") }}
+                          </time>
+                        </div>
+                      </footer>
+                    </div>
+                  </div>
+                </article>
+              </li>
+            {{ end }}
+        </ul>
+      </div>
+    </article>
+  </div>
+{{ end }}

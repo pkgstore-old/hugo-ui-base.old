@@ -1,0 +1,82 @@
+{{ $x := (.context | default .) }}
+{{ $cfg := ($x.Site.Data.cfg) }}
+
+{{ $posts := (where $x.Site.RegularPages "Type" "in" $x.Site.Params.sections.blog) }}
+{{ $count := ($cfg.index.news.count | default "9") }}
+{{ $view := ($cfg.index.news.view | default "0") }}
+{{ $sidebar_on := ($cfg.sidebar.on | default 0) }}
+{{ $news := ((where $posts ".Params.categories" "intersect" (slice "News")) | first $count) }}
+
+{{ $container_open := ("<div class='container'>" | safeHTML) }}
+{{ $container_close := ("</div>" | safeHTML) }}
+
+{{ if (and ($sidebar_on) ($x.IsHome)) }}
+    {{ $container_open = "" }}
+    {{ $container_close = "" }}
+{{ end }}
+
+{{ with ($news) }}
+
+  <div class="section py-3 py-md-5">
+      {{ $container_open }}
+    <h2 class="border-bottom">
+      <a href='{{ "categories/news/" | relLangURL }}'>{{ i18n "news" }}</a>
+    </h2>
+    <div class="row row-cols-1 g-3">
+
+      <!--[ view: 0 ]-->
+        {{ if (eq $view "0") }}
+          <div class="col">
+              {{ range (first 1 .) }}
+                  {{ $summary := (delimit (slice .Summary "") "") }}
+                  {{ (partial "view/node-image-lg" (dict "context" . "summary" $summary)) }}
+              {{ end }}
+          </div>
+          <div class="col">
+            <div class="row row-cols-1 row-cols-lg-2 g-3">
+                {{ range (after 1 .) }}
+                  <div class="col">
+                      {{ $summary := (delimit (slice .Summary "") "") }}
+                      {{ (partial "view/node-image-lg" (dict "context" . "summary" $summary)) }}
+                  </div>
+                {{ end }}
+            </div>
+          </div>
+        {{ end }}
+      <!--[ / view: 0 ]-->
+
+      <!--[ view: 1 ]-->
+        {{ if (eq $view "1") }}
+          <div class="col">
+            <div class="row row-cols-1 row-cols-lg-2 g-3">
+                {{ range . }}
+                  <div class="col">
+                      {{ $summary := (delimit (slice .Summary "") "") }}
+                      {{ (partial "view/node-image-lg" (dict "context" . "summary" $summary)) }}
+                  </div>
+                {{ end }}
+            </div>
+          </div>
+        {{ end }}
+      <!--[ / view: 1 ]-->
+
+      <!--[ view: 2 ]-->
+        {{ if (eq $view "2") }}
+          <div class="col">
+            <div class="row row-cols-1 row-cols-lg-2 g-3">
+                {{ range . }}
+                  <div class="col">
+                      {{ $summary := (delimit (slice .Summary "") "") }}
+                      {{ (partial "view/node-image-md" (dict "context" . "summary" $summary)) }}
+                  </div>
+                {{ end }}
+            </div>
+          </div>
+        {{ end }}
+      <!--[ / view: 2 ]-->
+
+    </div>
+      {{ $container_close }}
+  </div>
+
+{{ end }}

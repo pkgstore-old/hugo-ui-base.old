@@ -1,19 +1,20 @@
 {{ define "main" }}
 
-<div class="section py-3 py-md-5">
-  <div class="container">
-    {{ partial "breadcrumb" . }}
+  <div class="section py-3 py-md-5">
+    <div class="container">
+        {{ (partial "breadcrumb" .) }}
 
-    <div class="row row-cols-1 row-cols-lg-2 g-3">
-      {{ range (.Paginator.Pages) }}
-      <div class="col">
-        {{ partial "summary" (dict "context" . "type" "image") }}
+      <div class="row row-cols-1 row-cols-lg-2 g-3">
+          {{ range (.Paginator.Pages) }}
+            <div class="col">
+                {{ $summary := (delimit (slice .Summary "") "") }}
+                {{ (partial "view/node-image-md" (dict "context" . "summary" $summary)) }}
+            </div>
+          {{ end }}
       </div>
-      {{ end }}
-    </div>
 
-    {{ partial "pagination" . }}
+        {{ (partial "pagination" .) }}
+    </div>
   </div>
-</div>
 
 {{ end }}

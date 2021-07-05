@@ -1,6 +1,19 @@
 {{ $x := (.context | default .) }}
-{{ $icon := ($x.Params.cover.icon.id | default "fas fa-folder-open") }}
+{{ $view := (.view | default "md") }}
+{{ $cfg := ($x.Site.Data.cfg.view.node.icon) }}
+{{ $icon := ($x.Params.cover.icon.id | default $cfg.default) }}
 
-<a href="{{ $x.RelPermalink }}" class="cover-icon d-inline-block text-decoration-none border rounded p-2 text-muted">
-  <span class="d-flex justify-content-center align-items-center node-icon"><i class="{{ $icon }} fa-fw fa-2x"></i></span>
-</a>
+<!--[ view: md ]-->
+{{ if (eq $view "md") }}
+    {{ $width := (.width | default $cfg.md.width) }}
+    {{ $height := (.height | default $cfg.md.height) }}
+    {{ $size := (.size | default $cfg.md.size) }}
+
+    <a href="{{ $x.RelPermalink }}"
+       class="cover-icon d-flex justify-content-center align-items-center text-decoration-none border rounded p-2 text-muted"
+       style="width: {{ $width }}; height: {{ $height }};">
+      <i class="{{ $icon }} fa-fw fa-{{ $size }}"></i>
+    </a>
+
+{{ end }}
+<!--[ / view: md ]-->

@@ -1,42 +1,42 @@
 {{ $scripts := ($.Site.Data.ui.scripts) }}
 
-<!-- vendor-external -->
+<!--[ js: vendor external ]-->
 {{ with ($scripts.vendor.external) }}
-{{ range . }}
-<script src="{{ . }}" crossorigin="anonymous" defer></script>
+    {{ range . }}
+      <script src="{{ . }}" crossorigin="anonymous" defer></script>
+    {{ end }}
 {{ end }}
-{{ end }}
-<!-- / vendor-external -->
+<!--[ / js: vendor external ]-->
 
-<!-- vendor-internal -->
+<!--[ js: vendor internal ]-->
 {{ with ($scripts.vendor.internal) }}
-{{ $bundle := slice }}
-{{ range . }}
-{{ $bundle = ($bundle | append (resources.Get .)) }}
+    {{ $bundle := slice }}
+    {{ range . }}
+        {{ $bundle = ($bundle | append (resources.Get .)) }}
+    {{ end }}
+
+    {{ $bundle = ($bundle | resources.Concat "js/vendor.bundle.js") }}
+    {{ $bundle = ($bundle | minify) }}
+
+    <script src="{{ $bundle.RelPermalink }}" defer></script>
 {{ end }}
+<!--[ / js: vendor internal ]-->
 
-{{ $bundle = ($bundle | resources.Concat "js/vendor.bundle.js") }}
-{{ $bundle = ($bundle | minify) }}
-
-<script src="{{ $bundle.RelPermalink }}" defer></script>
-{{ end }}
-<!-- / vendor-internal -->
-
-<!-- ui-internal -->
+<!--[ js: ui internal ]-->
 {{ with ($scripts.system.internal) }}
-{{ $bundle := slice }}
-{{ range . }}
-{{ $bundle = ($bundle | append (resources.Get .)) }}
+    {{ $bundle := slice }}
+    {{ range . }}
+        {{ $bundle = ($bundle | append (resources.Get .)) }}
+    {{ end }}
+
+    {{ $bundle = (($bundle | resources.Concat "js/system.bundle.js") | js.Build) }}
+    {{ $bundle = ($bundle | resources.ExecuteAsTemplate ("js/system.bundle.js" | relLangURL) .) }}
+    {{ $bundle = ($bundle | minify) }}
+
+    <script src="{{ $bundle.RelPermalink }}" defer></script>
 {{ end }}
+<!--[ / js: ui internal ]-->
 
-{{ $bundle = (($bundle | resources.Concat "js/system.bundle.js") | js.Build) }}
-{{ $bundle = ($bundle | resources.ExecuteAsTemplate ("js/system.bundle.js" | relLangURL) .) }}
-{{ $bundle = ($bundle | minify) }}
-
-<script src="{{ $bundle.RelPermalink }}" defer></script>
-{{ end }}
-<!-- / ui-internal -->
-
-<!-- highlight.js -->
-<script src="/js/vendor/highlight/init.min.js" async></script>
-<!-- / highlight.js -->
+<!--[ js: highlight.js ]-->
+<script src="/js/hljs/init.min.js" async></script>
+<!--[ / js: highlight.js ]-->

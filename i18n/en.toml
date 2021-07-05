@@ -149,6 +149,9 @@ other = "Authors"
 [news]
 other = "News"
 
+[opinion]
+other = "Opinion"
+
 [feedback]
 other = "Feedback"
 
@@ -174,7 +177,7 @@ other = "Not data..."
 [alert.in_dev]
 other = "Information on this page is under revision. Information may be added (and / or) changed."
 
-[alert.subjectivity]
+[alert.opinion]
 other = "Information on this page is the subjective opinion of author."
 
 # ----------------------------------------------------------------------------------------------------------------------

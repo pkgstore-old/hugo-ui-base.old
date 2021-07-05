@@ -1,6 +1,6 @@
 {{ $x := (.context | default .) }}
 
-<div class="article-body">
+<div class="node-body">
   <table class="table table-bordered">
     <thead>
     <tr>
@@ -10,10 +10,10 @@
     </thead>
     <tbody>
     {{ range ($x.Translations) }}
-    <tr>
-      <td>{{ .Language.LanguageName }}</td>
-      <td><a href="{{ .RelPermalink }}">{{ .Title }}</a></td>
-    </tr>
+      <tr>
+        <td>{{ .Language.LanguageName }}</td>
+        <td><a href="{{ .RelPermalink }}">{{ .Title }}</a></td>
+      </tr>
     {{ end }}
     </tbody>
   </table>

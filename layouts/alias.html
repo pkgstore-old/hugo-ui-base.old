@@ -10,13 +10,13 @@
     <meta http-equiv="refresh" content="0; url={{ .Permalink }}"/>
   </noscript>
 
-  <!-- scripts -->
-  {{ $js := "js/lang.redirect.min.js" }}
-  {{ $script := ((resources.Get $js) | js.Build) }}
-  {{ $script = ($script | resources.ExecuteAsTemplate "js/lang.js" .) }}
-  {{ $script = ($script | minify) }}
+  <!--[ scripts ]-->
+    {{ $js := "js/lang.redirect.min.js" }}
+    {{ $script := ((resources.Get $js) | js.Build) }}
+    {{ $script = ($script | resources.ExecuteAsTemplate "js/lang.js" .) }}
+    {{ $script = ($script | minify) }}
   <script src="{{ $script.RelPermalink }}"></script>
-  <!-- / scripts -->
+  <!--[ / scripts ]-->
 </head>
 <body>
 <h2>Redirection</h2>

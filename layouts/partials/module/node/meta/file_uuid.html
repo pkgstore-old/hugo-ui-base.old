@@ -1,0 +1,12 @@
+{{ $x := (.context | default .) }}
+
+{{ with ($x.Params.uuid) }}
+  <ul class="row list-unstyled">
+    <li class="col-4">
+      <span>{{ i18n "uuid" }}</span>
+    </li>
+    <li class="col">
+      <input type="text" class="form-control" value="{{ $x.Params.uuid }}" data-ext-fn="ext-select-all" readonly/>
+    </li>
+  </ul>
+{{ end }}

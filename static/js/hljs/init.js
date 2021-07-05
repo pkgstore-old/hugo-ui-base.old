@@ -16,7 +16,7 @@ function highlight() {
     if ($no_hl.some(($i) => $code.classList.contains($i))) return 0;
 
     $code.classList.add('hljs');
-    const worker = new Worker('/js/vendor/highlight/worker.min.js');
+    const worker = new Worker('/js/hljs/worker.min.js');
     worker.onmessage = ($event) => {
       $code.innerHTML = $event.data;
     }

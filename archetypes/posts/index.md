@@ -9,9 +9,7 @@ images:
   - 'https://images.unsplash.com/photo-1585776245991-cf89dd7fc73a'
 cover:
   image:
-    width: ''
-    height: ''
-    crop: ''
+    crop: 'entropy'
 sources:
   - 'https://example-1.com'
   - 'https://example-2.com'

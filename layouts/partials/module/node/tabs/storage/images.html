@@ -5,21 +5,21 @@
 
 {{ with ($x.Page.Resources.Match "storage/*") }}
 
-<div class="article-body ext-gallery">
-  <div class="row row-cols-auto g-3 spotlight-group" data-ext-fn="ext-gallery">
-    {{ range . }}
-    {{ if (in .MediaType.MainType "image") }}
-    {{ $src := . }}{{ $thumb := ($src.Fill (printf "%sx%s %s" $width $height $crop)) }}
-    <div class="col">
-      <a class="d-inline-block spotlight" href="{{ $src.RelPermalink }}" data-title="{{ (.Name | path.Base) }}">
-        <picture>
-          <img class="img-thumbnail" src="{{ $thumb.RelPermalink }}" width="{{ $width }}" height="{{ $height }}" alt="{{ (.Name | path.Base) }}"/>
-        </picture>
-      </a>
+  <div class="node-body ext-gallery">
+    <div class="row row-cols-auto g-3 spotlight-group" data-ext-fn="ext-gallery">
+        {{ range . }}
+            {{ if (in .MediaType.MainType "image") }}
+                {{ $src := . }}{{ $thumb := ($src.Fill (printf "%sx%s %s" $width $height $crop)) }}
+                <div class="col">
+                  <a class="d-inline-block spotlight" href="{{ $src.RelPermalink }}" data-title="{{ (.Name | path.Base) }}">
+                    <picture>
+                      <img class="img-thumbnail" src="{{ $thumb.RelPermalink }}" width="{{ $width }}" height="{{ $height }}" alt="{{ (.Name | path.Base) }}"/>
+                    </picture>
+                  </a>
+                </div>
+            {{ end }}
+        {{ end }}
     </div>
-    {{ end }}
-    {{ end }}
   </div>
-</div>
 
 {{ end }}

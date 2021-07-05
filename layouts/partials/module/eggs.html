@@ -1,7 +1,7 @@
 {{ $x := (.context | default .) }}
-{{ $img_src := ($x.Site.Data.cfg.egg.img.src | default "") }}
-{{ $img_width := ($x.Site.Data.cfg.egg.img.width | default "") }}
-{{ $img_height := ($x.Site.Data.cfg.egg.img.height | default "") }}
+{{ $img_src := ($x.Site.Data.cfg.egg.image.src | default "") }}
+{{ $img_width := ($x.Site.Data.cfg.egg.image.width | default "") }}
+{{ $img_height := ($x.Site.Data.cfg.egg.image.height | default "") }}
 
 <div class="modal fade" id="ext-egg" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">

@@ -4,15 +4,15 @@
 
 {{ $target := "_self" }}{{ $rel := "" }}
 {{ with (strings.HasPrefix .Destination "http") }}
-{{ $target = "_blank" }}{{ $rel = "noopener noreferrer nofollow" }}
+    {{ $target = "_blank" }}{{ $rel = "noopener noreferrer nofollow" }}
 {{ end }}
 
 {{ $viewer := "" }}
 {{ $files := (slice ".doc" ".docx" ".xls" ".xlsx" ".ppt" ".pptx" ".odt" ".ods" ".odp") }}
 {{ range $files }}
-{{ with (strings.HasSuffix $href .) }}
-{{ $viewer = "https://view.officeapps.live.com/op/view.aspx?src=" }}
-{{ end }}
+    {{ with (strings.HasSuffix $href .) }}
+        {{ $viewer = "https://view.officeapps.live.com/op/view.aspx?src=" }}
+    {{ end }}
 {{ end }}
 
 <a title="{{ $title }}" href="{{ $viewer }}{{ $href }}" target="{{ $target }}" rel="{{ $rel }}">{{ $text }}</a>

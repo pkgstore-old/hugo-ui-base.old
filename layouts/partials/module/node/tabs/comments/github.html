@@ -1,23 +1,15 @@
 {{ $x := (.context | default .) }}
+{{ $cfg := ($x.Site.Params.comments.utterances) }}
 
 <!-- utterances -->
-{{ with ($x.Site.Params.comments.utterances.repo) }}
-{{ $repo := ($x.Site.Params.comments.utterances.repo | default "") }}
-{{ $theme := ($x.Site.Params.comments.utterances.theme | default "github-light") }}
+{{ with ($cfg.repo) }}
+    {{ $repo := ($cfg.repo | default "") }}
+    {{ $theme := ($cfg.theme | default "github-light") }}
 
-{{ $term := "" }}
-{{ with ($x.Params.uuid) }}
-{{ $term = ($x.Params.uuid | relLangURL) }}
-{{ end }}
+    {{ $term := "" }}
+    {{ with ($x.Params.uuid) }}{{ $term = ($x.Params.uuid | relLangURL) }}{{ end }}
+    {{ $issue_term := ($term | default $x.RelPermalink) }}
 
-{{ $issue_term := ($term | default $x.RelPermalink) }}
-
-<script src="https://utteranc.es/client.js"
-        repo="{{ $repo }}"
-        issue-term="{{ $issue_term }}"
-        theme="{{ $theme }}"
-        crossorigin="anonymous"
-        async>
-</script>
+    <script src="https://utteranc.es/client.js" repo="{{ $repo }}" issue-term="{{ $issue_term }}" theme="{{ $theme }}" crossorigin="anonymous" async></script>
 {{ end }}
 <!-- / utterances -->
