@@ -24,7 +24,7 @@
     {{ with $.Site.LanguageCode }}
     <language>{{.}}</language>
     {{ end }}
-    <sy:updatePeriod>hourly</sy:updatePeriod>
+    <sy:updatePeriod>weekly</sy:updatePeriod>
     <sy:updateFrequency>1</sy:updateFrequency>
     {{ with $.Site.Params.contacts.email }}
     <managingEditor>{{.}}{{ with $.Site.Params.contacts.name }} ({{.}}){{ end }}</managingEditor>
