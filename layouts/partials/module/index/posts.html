@@ -5,7 +5,7 @@
 {{ $count := ($cfg.index.posts.count | default "9") }}
 {{ $view := ($cfg.index.posts.view | default "0") }}
 {{ $sidebar_on := ($cfg.sidebar.on | default 0) }}
-{{ $exclude_categories := ($cfg.index.categories.exclude | default (slice "")) }}
+{{ $exclude_categories := ($cfg.index.categories.exclude) }}
 
 {{ with ($exclude_categories) }}
     {{ $exclude := (where $posts ".Params.categories" "intersect" .) }}
