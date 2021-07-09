@@ -2,12 +2,12 @@
 {{ $summary := (.summary | default $x.Summary) }}
 
 <article class="node-{{ $x.Type }} d-flex">
-  <div class="flex-shrink-0">
+  <div class="flex-shrink-0 me-3 d-none d-md-block">
     <div class="node-cover">
         {{ (partial "module/node/cover/image" (dict "context" $x "view" "md")) }}
     </div>
   </div>
-  <div class="flex-grow-1 ms-3">
+  <div class="flex-grow-1">
     <header>
       <div class="node-title">
         <h4 class="h5">
