@@ -9,33 +9,33 @@
 <meta name="title" content="{{ if (ne .Title $.Site.Title) }}{{ .Title }} | {{ end }}{{ $.Site.Title }}"/>
 <meta name="description" content="{{ (($description | plainify) | chomp) }}"/>
 
-<!-- dns-prefetch -->
+<!--[ dns-prefetch ]-->
 {{ $dns_prefetch := ($.Site.Data.ui.network.dns_prefetch) }}
 {{ range ($dns_prefetch) }}
   <link rel="dns-prefetch" href="{{ . }}"/>
 {{ end }}
-<!-- / dns-prefetch -->
+<!--[ / dns-prefetch ]-->
 
-<!-- pre-connect -->
+<!--[ pre-connect ]-->
 {{ $pre_connect := ($.Site.Data.ui.network.pre_connect) }}
 {{ range ($pre_connect) }}
   <link rel="preconnect" href="{{ . }}" crossorigin="anonymous"/>
 {{ end }}
-<!-- / pre-connect -->
+<!--[ / pre-connect ]-->
 
-<!-- ui-fonts -->
+<!--[ ui-fonts ]-->
 {{ (partial "ui-fonts" .) }}
-<!-- / ui-fonts -->
+<!--[ / ui-fonts ]-->
 
-<!-- ui-styles -->
+<!--[ ui-styles ]-->
 {{ (partial "ui-css" .) }}
-<!-- / ui-styles -->
+<!--[ / ui-styles ]-->
 
-<!-- ui-icons -->
+<!--[ ui-icons ]-->
 {{ (partial "ui-icons" .) }}
-<!-- / ui-icons -->
+<!--[ / ui-icons ]-->
 
-<!-- pre-load-js -->
+<!--[ pre-load-js ]-->
 {{ $scripts := ($.Site.Data.ui.scripts) }}
 {{ with ($scripts.vendor.external) }}
     {{ range . }}
@@ -45,15 +45,15 @@
 
 <link rel="preload" href="/js/vendor.bundle.min.js" as="script"/>
 <link rel="preload" href='{{ ("/js/system.bundle.min.js" | relLangURL) }}' as="script"/>
-<!-- / pre-load-js -->
+<!--[ / pre-load-js ]-->
 
 <meta name="application-name" content="{{ $.Site.Title }}"/>
 
-<!-- canonical -->
+<!--[ canonical ]-->
 <link rel="canonical" href="{{ .Permalink }}"/>
-<!-- / canonical -->
+<!--[ / canonical ]-->
 
-<!-- languages -->
+<!--[ languages ]-->
 {{ if (.IsTranslated) }}
 
     {{ range (.Translations) }}
@@ -69,13 +69,13 @@
     {{ end }}
 
 {{ end }}
-<!-- / languages -->
+<!--[ / languages ]-->
 
-<!-- output-formats -->
+<!--[ output-formats ]-->
 {{ range (.AlternativeOutputFormats) }}
   <link rel="{{ .Rel }}" type="{{ .MediaType.Type }}" href="{{ (.Permalink | safeURL) }}" title="{{ $.Site.Title }}"/>
 {{ end }}
-<!-- / output-formats -->
+<!--[ / output-formats ]-->
 
 {{ template "_internal/twitter_cards.html" . }}
 {{ template "_internal/opengraph.html" . }}
