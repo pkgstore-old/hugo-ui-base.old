@@ -9,7 +9,7 @@
 {{ with $emoji }}{{ $emoji = printf "%s " $emoji }}{{ end }}
 
 <title>{{ $emoji }}{{ if (ne .Title $.Site.Title) }}{{ .Title }} | {{ end }}{{ $.Site.Title }}</title>
-<meta name="title" content="{{ if (ne .Title $.Site.Title) }}{{ .Title }} | {{ end }}{{ $.Site.Title }}"/>
+<meta name="title" content="{{ if (ne .Title $.Site.Title) }}{{ .Title }} / {{ end }}{{ $.Site.Title }}"/>
 <meta name="description" content="{{ (($description | plainify) | chomp) }}"/>
 
 <!--[ dns-prefetch ]-->
