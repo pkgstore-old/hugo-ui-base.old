@@ -5,7 +5,10 @@
 {{ with (.Summary) }}{{ $description = . }}{{ end }}
 {{ with (.Description) }}{{ $description = . }}{{ end }}
 
-<title>{{ if (ne .Title $.Site.Title) }}{{ .Title }} | {{ end }}{{ $.Site.Title }}</title>
+{{ $emoji := ($.Site.Data.ui.meta.title.emoji) }}
+{{ with $emoji }}{{ $emoji = printf "%s " $emoji }}{{ end }}
+
+<title>{{ $emoji }}{{ if (ne .Title $.Site.Title) }}{{ .Title }} | {{ end }}{{ $.Site.Title }}</title>
 <meta name="title" content="{{ if (ne .Title $.Site.Title) }}{{ .Title }} | {{ end }}{{ $.Site.Title }}"/>
 <meta name="description" content="{{ (($description | plainify) | chomp) }}"/>
 
