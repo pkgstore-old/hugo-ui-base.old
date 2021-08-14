@@ -13,6 +13,14 @@ body {
     text-decoration: none;
   }
 
+  // Image lazy load placeholder.
+  .node-cover {
+    img {
+      background-color: #f8f9fa;
+    }
+  }
+
+  // User avatar position.
   &.type-authors {
     article {
       header {
@@ -36,6 +44,7 @@ body {
     .navbar {
       @include font-cond();
 
+      // HeadRoom JS.
       &.headroom {
         will-change: transform;
         transition: transform 200ms linear;

@@ -51,7 +51,7 @@
                     <img class="d-block w-100 h-100"
                          src="{{ $thumb.RelPermalink }}"
                          width="{{ $width }}" height="{{ $height }}"
-                         alt="{{ (.Name | path.Base) }}" loading="lazy"/>
+                         alt="" loading="lazy"/>
                   </picture>
                 </div>
             {{ end }}
@@ -82,14 +82,14 @@
                       <img class="d-block w-100 h-100"
                            src="{{ $src }}?crop={{ $crop }}&amp;w={{ $width }}&amp;h={{ $height }}&amp;fit={{ $fit }}&amp;auto=format"
                            width="{{ $width }}" height="{{ $height }}"
-                           alt="{{ $src }}" loading="lazy"/>
+                           alt="" loading="lazy"/>
                     </picture>
                   {{ else }}
                     <picture>
                       <img class="d-block w-100 h-100"
                            src="{{ $src }}"
                            width="{{ $width }}" height="{{ $height }}"
-                           alt="{{ $src }}" loading="lazy"/>
+                           alt="" loading="lazy"/>
                     </picture>
                   {{ end }}
               </div>
@@ -134,7 +134,7 @@
               {{ $filename := (.Name | path.Base) }}
               <div>
                 <a class="d-block" href="{{ $x.RelPermalink }}">
-                  <img class="d-block rounded" src="{{ $thumb.RelPermalink }}" width="{{ $width }}" height="{{ $height }}" alt="Image" loading="lazy"/>
+                  <img class="d-block rounded" src="{{ $thumb.RelPermalink }}" width="{{ $width }}" height="{{ $height }}" alt="" loading="lazy"/>
                 </a>
               </div>
           {{ end }}
@@ -151,9 +151,9 @@
                     <img class="d-block rounded"
                          src="{{ $src }}?crop={{ $crop }}&amp;w={{ $width }}&amp;h={{ $height }}&amp;fit={{ $fit }}&amp;auto=format"
                          width="{{ $width }}" height="{{ $height }}"
-                         alt="{{ $src }}" loading="lazy"/>
+                         alt="" loading="lazy"/>
                   {{ else }}
-                    <img class="d-block rounded" src="{{ $src }}" width="{{ $width }}" height="{{ $height }}" alt="{{ $src }}" loading="lazy"/>
+                    <img class="d-block rounded" src="{{ $src }}" width="{{ $width }}" height="{{ $height }}" alt="" loading="lazy"/>
                   {{ end }}
               </a>
             </div>
