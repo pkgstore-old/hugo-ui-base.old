@@ -11,7 +11,7 @@ git submodule add https://github.com/pkgstore/hugo-ui-base.git themes/ui-base
 ## Update
 
 ```
-git submodule update --remote
+git submodule update --remote --merge
 ```
 
 ## Uninstall
