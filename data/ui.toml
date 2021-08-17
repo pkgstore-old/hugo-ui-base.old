@@ -65,7 +65,8 @@ internal = [
   'js/vendor/module/popper/popper.min.js',
   'js/vendor/module/bootstrap/bootstrap.min.js',
   'js/vendor/module/spotlight/spotlight.bundle.min.js',
-  'js/vendor/module/qrcode/qrcode.min.js'
+  'js/vendor/module/qrcode/qrcode.min.js',
+  'js/vendor/module/hljs/highlight.min.js'
 ]
 
 [scripts.system]
