@@ -28,7 +28,7 @@
         "licenses": [{{ range $i, $e := (.Page.Params.licenses) }}{{ if $i }},{{ end }}{"name":"{{ $e }}","url":"https://choosealicense.com/licenses/{{ $e }}"}{{ end }}],
         "fid": "{{ .File.UniqueID }}",
         "uuid": "{{ .Page.Params.uuid }}",
-        "sha": "{{ ((.Page.Plain | chomp) | sha1) }}",
+        "sha1": "{{ ((.Page.Plain | chomp) | sha1) }}",
         "word_count": "{{ .Page.WordCount }}",
         "read_time": "{{ .Page.ReadingTime }}"
       }
