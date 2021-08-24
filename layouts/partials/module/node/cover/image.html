@@ -36,7 +36,6 @@
             {{ end }}
 
             {{ range $key, $src := $img_int }}
-                {{ $src := $src }}
                 {{ $thumb := ($src.Fill (printf "%sx%s %s" $width $height $crop)) }}
                 {{ $filename := ($src.Name | path.Base) }}
                 <div class='carousel-item {{ if (in $filename ".00.") }}active{{ end }}'>
