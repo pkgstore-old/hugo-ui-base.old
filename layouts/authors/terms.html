@@ -2,7 +2,9 @@
 
   <div class="section py-3 py-md-5">
     <div class="container">
+
         {{ (partial "breadcrumb" .) }}
+
       <div class="row row-cols-1 row-cols-lg-1 g-3">
           {{ range (.Paginator.Pages) }}
             <div class="col">
@@ -12,7 +14,9 @@
             </div>
           {{ end }}
       </div>
+
         {{ (partial "pagination" .) }}
+
     </div>
   </div>
 
