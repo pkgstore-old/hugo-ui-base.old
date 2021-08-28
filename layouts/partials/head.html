@@ -46,8 +46,8 @@
     {{ end }}
 {{ end }}
 
-<link rel="preload" href="/js/vendor.bundle.min.js" as="script"/>
-<link rel="preload" href='{{ ("/js/system.bundle.min.js" | relLangURL) }}' as="script"/>
+<link rel="preload" href='{{ ("js/vendor.bundle.min.js" | relURL) }}' as="script"/>
+<link rel="preload" href='{{ ("js/system.bundle.min.js" | relLangURL) }}' as="script"/>
 <!--[ / pre-load-js ]-->
 
 <meta name="application-name" content="{{ $.Site.Title }}"/>
