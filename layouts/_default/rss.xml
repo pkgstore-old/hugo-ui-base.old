@@ -4,8 +4,6 @@
 {{ with .Summary }}{{ $description = . }}{{ end }}
 {{ with .Description }}{{ $description = . }}{{ end }}
 
-{{ $date := (((.Date.UTC.Format "Mon, 02 Jan 2006 15:04:05 -0700") | safeHTML) | default "") }}
-
 {{ $pages := slice }}
 {{ if (or $.IsHome $.IsSection) }}{{ $pages = $x.RegularPages }}{{ else }}{{ $pages = $x.Pages }}{{ end }}
 {{ $limit := .Site.Config.Services.RSS.Limit }}
@@ -21,20 +19,12 @@
     <title>{{ if (eq .Title $.Site.Title) }}{{ $.Site.Title }}{{ else }}{{ with .Title }}{{.}} | {{ end }}{{ $.Site.Title }}{{ end }}</title>
     <link>{{ .Permalink }}</link>
     <description>{{ $description }}</description>
-    {{ with $.Site.LanguageCode }}
-    <language>{{.}}</language>
-    {{ end }}
+    {{ with $.Site.LanguageCode }}<language>{{.}}</language>{{ end }}
     <sy:updatePeriod>weekly</sy:updatePeriod>
     <sy:updateFrequency>1</sy:updateFrequency>
-    {{ with $.Site.Params.contacts.email }}
-    <managingEditor>{{.}}{{ with $.Site.Params.contacts.name }} ({{.}}){{ end }}</managingEditor>
-    {{ end }}
-    {{ with $.Site.Params.contacts.email }}
-    <webMaster>{{.}}{{ with $.Site.Params.contacts.name }} ({{.}}){{ end }}</webMaster>
-    {{ end }}
-    {{ with $.Site.Params.license.name }}
-    <copyright>{{.}}</copyright>
-    {{ end }}
+    {{ with $.Site.Params.contacts.email }}<managingEditor>{{.}}{{ with $.Site.Params.contacts.name }} ({{.}}){{ end }}</managingEditor>{{ end }}
+    {{ with $.Site.Params.contacts.email }}<webMaster>{{.}}{{ with $.Site.Params.contacts.name }} ({{.}}){{ end }}</webMaster>{{ end }}
+    {{ with $.Site.Params.license.name }}<copyright>{{.}}</copyright>{{ end }}
     <image>
       <link>{{ .Permalink }}</link>
       <url>{{ ("img/icon-128.png" | absURL) }}</url>
@@ -43,29 +33,19 @@
       <title>{{ if (eq .Title $.Site.Title) }}{{ $.Site.Title }}{{ else }}{{ with .Title }}{{.}} | {{ end }}{{ $.Site.Title }}{{ end }}</title>
       <description>{{ $description }}</description>
     </image>
-    {{ if (not .Date.IsZero) }}
-    <lastBuildDate>{{ $date }}</lastBuildDate>
-    {{ end }}
-    {{ with (.OutputFormats.Get "rss") }}
-    {{ (printf "<atom:link href=%q rel='self' type=%q/>" .Permalink .MediaType) | safeHTML }}
-    {{ end }}
-    {{ with (.OutputFormats.Get "opensearch") }}
-    {{ (printf "<atom:link href=%q rel='search' type=%q/>" .Permalink .MediaType) | safeHTML }}
-    {{ end }}
+    {{ if (not .Date.IsZero) }}<lastBuildDate>{{ ((.Date.UTC.Format "Mon, 02 Jan 2006 15:04:05 -0700") | safeHTML) }}</lastBuildDate>{{ end }}
+    {{ with (.OutputFormats.Get "rss") }}{{ (printf "<atom:link href=%q rel='self' type=%q/>" .Permalink .MediaType) | safeHTML }}{{ end }}
+    {{ with (.OutputFormats.Get "opensearch") }}{{ (printf "<atom:link href=%q rel='search' type=%q/>" .Permalink .MediaType) | safeHTML }}{{ end }}
     {{ range $pages }}
     <item>
       <title>{{ .Title }}</title>
       <link>{{ .Permalink }}</link>
-      {{ range (.GetTerms "authors") }}
-      <dc:creator>{{ ((printf "<![CDATA[%s]]>" .LinkTitle) | safeHTML) }}</dc:creator>
-      {{ end }}
+      {{ range (.GetTerms "authors") }}<dc:creator>{{ ((printf "<![CDATA[%s]]>" .LinkTitle) | safeHTML) }}</dc:creator>{{ end }}
       <guid isPermaLink="true">{{ .Permalink }}</guid>
       <description>{{ (.Summary | plainify) }}</description>
       <content:encoded>{{ ((printf "<![CDATA[%s]]>" .Content) | safeHTML) }}</content:encoded>
-      <pubDate>{{ $date }}</pubDate>
-      {{ range (.GetTerms "categories") }}
-      <category>{{ .LinkTitle }}</category>
-      {{ end }}
+      <pubDate>{{ ((.Date.UTC.Format "Mon, 02 Jan 2006 15:04:05 -0700") | safeHTML) }}</pubDate>
+      {{ range (.GetTerms "categories") }}<category>{{ .LinkTitle }}</category>{{ end }}
     </item>
     {{ end }}
   </channel>
