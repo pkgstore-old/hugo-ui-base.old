@@ -4,6 +4,15 @@ body {
       @include font-cond();
     }
   }
+
+  &.is-node {
+    @for $i from 1 through 2 {
+      h#{$i} {
+        border-bottom: 1px solid #dee2e6;
+        padding-bottom: .3rem;
+      }
+    }
+  }
 }
 
 body {
