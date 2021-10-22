@@ -2,8 +2,12 @@
 {{ $content := (.content | default "") }}
 
 <div class="node-body">
-    {{ (partial "alert/in-dev" (dict "context" $x)) }}
-    {{ (partial "alert/opinion" (dict "context" $x)) }}
+    {{ if (in $x.Params.categories "InDev") }}
+        {{ (partial "function/alert" (dict "type" "warning" "icon" "fas fa-edit" "msg" "alert.in_dev")) }}
+    {{ end }}
+    {{ if (in $x.Params.categories "Opinion") }}
+        {{ (partial "function/alert" (dict "type" "warning" "icon" "fas fa-user-graduate" "msg" "alert.opinion")) }}
+    {{ end }}
     {{ $content }}
     {{ (partial "module/node/sources" (dict "context" $x)) }}
 </div>

@@ -14,7 +14,7 @@
               {{ end }}
           </ul>
         {{ else }}
-            {{ (partial "alert/no-data" .) }}
+            {{ (partial "function/alert" (dict "type" "info" "icon" "fas fa-eye-slash" "msg" "alert.no_data")) }}
         {{ end }}
     </div>
   </article>
